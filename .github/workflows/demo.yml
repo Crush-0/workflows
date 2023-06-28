@@ -28,7 +28,7 @@ jobs:
         cp ../../LICENSE.md LICENSE.md
         cd ../..
         node update-package-version.js
-        cd ./test
+        cd .github/test
 
     - name: Package all
       run: 
