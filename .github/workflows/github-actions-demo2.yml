@@ -1,0 +1,17 @@
+name: github-actions-demo2
+on:
+  push:
+    branches:
+      -main
+jobs:
+  clone:
+    runs-on: [self-hosted,windows-lastest]
+
+    steps:
+    -name: Checkout main branch
+     uses: actions/checkout@v2
+     with:
+      ref: main
+    
+    -name: Git clone
+     run: git clone https://github.com/Crush-0/workflows C:\Users\ChengYao\Desktop\train\github-action\test
