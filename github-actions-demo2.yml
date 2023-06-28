@@ -2,14 +2,14 @@ name: github-actions-demo2
 on:
   push:
     branches:
-      -main
+      ["main"]
 jobs:
   clone:
     runs-on: [self-hosted,windows-lastest]
 
     steps:
     -uses: actions/checkout@v3
-    
+
     -name: Checkout main branch
      with:
       ref: main
