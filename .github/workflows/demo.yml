@@ -16,6 +16,7 @@ jobs:
 
     - name: Git clone
       run: |
+        mkdir .github/test
         mkdir .github/test/client
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-client.git .github/test/client
         mkdir .github/test/server
