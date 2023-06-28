@@ -9,8 +9,6 @@ jobs:
 
     steps:
     -uses: actions/checkout@v3
-
-    -name: Checkout main branch
      with:
       ref: main
     
