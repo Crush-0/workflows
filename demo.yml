@@ -6,7 +6,7 @@ on:
 
 jobs:
   clone:
-    runs-on: windows-lastest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout main branch
@@ -17,17 +17,17 @@ jobs:
     - name: Git clone
       run: |
         mkdir .github/test
-        mkdir .github/test/client
-        git clone git@github.com:react-refactor-tool-on-vscode/RRTV-client.git .github/test/client
-        mkdir .github/test/server
-        git clone git@github.com:react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
+        git clone https://github.com/react-refactor-tool-on-vscode/RRTV-client.git .github/test
+        git clone https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test
+        mkdir .github/package
+        git clone https://github.com/Crush-0/workflows.git .github/package
 
     - name: Configure version
       run: |
         cd .github/test
-        cp ../package.json package.json
-        cp ../LICENSE.md LICENSE.md
-        cd ..
+        cp ../package/workflows/package.json package.json
+        cp ../package/workflows/package.json LICENSE.md
+        cd ../package/workflows
         node update-package-version.js
         cd .github/test
 
@@ -35,11 +35,6 @@ jobs:
       run: 
         vsce package
       
-    - name: Delete
-      run: |
-        cd ..
-        delete_folder_client.bat
-        delete_folder_server.bat
 
     - uses: GoogleCloudPlatform/release-please-action@v3
       id: release
