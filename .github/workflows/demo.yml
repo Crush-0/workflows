@@ -16,19 +16,20 @@ jobs:
 
     - name: Git clone
       run: |
-        mkdir C:\Users\ChengYao\Desktop\train\github-action\test\client
-        git clone git@github.com:react-refactor-tool-on-vscode/RRTV-client.git C:\Users\ChengYao\Desktop\train\github-action\test\client
-        mkdir C:\Users\ChengYao\Desktop\train\github-action\test\server
-        git clone git@github.com:react-refactor-tool-on-vscode/RRTV-server.git C:\Users\ChengYao\Desktop\train\github-action\test\server
+        mkdir .github/test
+        mkdir .github/test/client
+        git clone git@github.com:react-refactor-tool-on-vscode/RRTV-client.git .github/test/client
+        mkdir .github/test/server
+        git clone git@github.com:react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
 
     - name: Configure version
       run: |
-        cd C:\Users\ChengYao\Desktop\train\github-action\test
+        cd .github/test
         cp ../package.json package.json
         cp ../LICENSE.md LICENSE.md
         cd ..
         node update-package-version.js
-        cd test
+        cd .github/test
 
     - name: Package all
       run: 
