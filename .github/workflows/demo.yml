@@ -6,7 +6,7 @@ on:
 
 jobs:
   clone:
-    runs-on: windows-lastest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout main branch
