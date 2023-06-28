@@ -1,0 +1,45 @@
+name: demo
+on:
+  push:
+    branches:
+      ["main"]
+jobs:
+  clone:
+    runs-on: [self-hosted,windows-lastest]
+
+    steps:
+    - name: Checkout main branch
+      uses: actions/checkout@v2
+      with:
+        ref: main
+
+    - name: Git clone
+      run: |
+        mkdir C:\Users\ChengYao\Desktop\train\github-action\test\client
+        git clone git@github.com:react-refactor-tool-on-vscode/RRTV-client.git C:\Users\ChengYao\Desktop\train\github-action\test\client
+        mkdir C:\Users\ChengYao\Desktop\train\github-action\test\server
+        git clone git@github.com:react-refactor-tool-on-vscode/RRTV-server.git C:\Users\ChengYao\Desktop\train\github-action\test\server
+
+    - name: Configure version
+      run: |
+        cd C:\Users\ChengYao\Desktop\train\github-action\test
+        cp ../package.json package.json
+        cp ../LICENSE.md LICENSE.md
+        cd ..
+        node update-package-version.js
+        cd test
+
+    - name: Package all
+      run: 
+        vsce package
+    
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+    
+    - name: Upload File
+      env:
+        UPLOAD_URL: ${{ steps.create_release.outputs.upload_url }}
+      run: |
+        echo %UPLOAD_URL%
+        powershell -command "Invoke-RestMethod -Uri $env:UPLOAD_URL -Method Post -InFile '"C:\Users\ChengYao\Desktop\train\github-action\test\react-refactor-tool-on-vscode-0.0.1.vsix"' -Headers @{ 'Content-Type' = 'application/octet-stream' }"
