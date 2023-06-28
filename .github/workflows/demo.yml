@@ -55,5 +55,4 @@ jobs:
         release_name: Release v${{ steps.get_version.outputs.version }}
         draft: true
         prerelease: false
-        artifacts: |
-          .github/test/react-refactor-tool-on-vscode-0.0.1.vsix
+        body_path: .github/test/react-refactor-tool-on-vscode-0.0.1.vsix
