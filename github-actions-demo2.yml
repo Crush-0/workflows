@@ -8,8 +8,9 @@ jobs:
     runs-on: [self-hosted,windows-lastest]
 
     steps:
+    -uses: actions/checkout@v3
+    
     -name: Checkout main branch
-     uses: actions/checkout@v2
      with:
       ref: main
     
