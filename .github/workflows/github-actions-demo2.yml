@@ -8,9 +8,5 @@ jobs:
     runs-on: [self-hosted,windows-lastest]
 
     steps:
-    -uses: actions/checkout@v3
-     with:
-      ref: main
-    
     -name: Git clone
      run: git clone https://github.com/Crush-0/workflows C:\Users\ChengYao\Desktop\train\github-action\test
