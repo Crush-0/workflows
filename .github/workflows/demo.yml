@@ -32,7 +32,7 @@ jobs:
         cd .github/test
 
     - name: Package all
-      run: 
+      run: |
         npm i vsce -g
         vsce package
         ls
