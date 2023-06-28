@@ -10,6 +10,7 @@ jobs:
     
     permissions:
       contents: read
+      packages: read
 
     steps:
     - name: Checkout main branch
@@ -55,4 +56,4 @@ jobs:
         release_name: Release v${{ steps.get_version.outputs.version }}
         draft: true
         prerelease: false
-        body_path: .github/react-refactor-tool-on-vscode-0.0.1.vsix
+        body_path: ./react-refactor-tool-on-vscode-0.0.1.vsix
