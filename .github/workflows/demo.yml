@@ -25,9 +25,9 @@ jobs:
     - name: Configure version
       run: |
         cd .github/test
-        cp ../workflows/main/package.json package.json
-        cp ../workflows/main/LICENSE.md LICENSE.md
-        cd ../workflows/main
+        cp ../package.json package.json
+        cp ../LICENSE.md LICENSE.md
+        cd ..
         node update-package-version.js
         cd .github/test
 
