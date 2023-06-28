@@ -27,6 +27,7 @@ jobs:
         cp ../../package.json package.json
         cp ../../LICENSE.md LICENSE.md
         cd ../..
+        cd .github/test/client/RRTV-client
         node update-package-version.js
         cd .github/test
 
