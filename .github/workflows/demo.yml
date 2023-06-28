@@ -1,11 +1,12 @@
 name: demo
 on:
   push:
-    branches:
-      ["main"]
+    branches: [ "main" ]
+  workflow_dispatch:
+
 jobs:
   clone:
-    runs-on: [self-hosted,windows-lastest]
+    runs-on: windows-lastest
 
     steps:
     - name: Checkout main branch
