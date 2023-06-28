@@ -30,18 +30,27 @@ jobs:
         cd ../..
         node update-package-version.js
         cd .github/test
+        ls
 
     - name: Package all
       run: |
-        npm i vsce -g
+        npm i @vscode/vsce -g
         vsce package
         ls
       
+    - name: Get package version
+      id: get_version
+      run: |
+        echo "::set-output name=version::$(node -p "require('./package.json').version")"
 
-    - uses: GoogleCloudPlatform/release-please-action@v3
-      id: release
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        token: ${{ secrets.RELEASE_TOKEN }}
-        release-type: node
-        package-name: standard-version
-        changelog-types: '[{"type": "types", "section":"Types", "hidden": false},{"type": "revert", "section":"Reverts", "hidden": false},{"type": "feat", "section": "Features", "hidden": false},{"type": "fix", "section": "Bug Fixes", "hidden": false},{"type": "improvement", "section": "Feature Improvements", "hidden": false},{"type": "docs", "section":"Docs", "hidden": false},{"type": "style", "section":"Styling", "hidden": false},{"type": "refactor", "section":"Code Refactoring", "hidden": false},{"type": "perf", "section":"Performance Improvements", "hidden": false},{"type": "test", "section":"Tests", "hidden": false},{"type": "build", "section":"Build System", "hidden": false},{"type": "ci", "section":"CI", "hidden":false}]'
+        tag_name: v${{ steps.get_version.outputs.version }}
+        release_name: Release v${{ steps.get_version.outputs.version }}
+        draft: true
+        prerelease: false
+        files: |
+          .github/test/react-refactor-tool-on-vscode-0.0.1.vsix
