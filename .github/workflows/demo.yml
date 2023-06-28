@@ -8,9 +8,7 @@ jobs:
   clone:
     runs-on: windows-latest
     
-    permissions:
-      contents: read
-      packages: read
+    permissions: read-all
 
     steps:
     - name: Checkout main branch
