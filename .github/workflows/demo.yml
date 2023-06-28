@@ -19,17 +19,15 @@ jobs:
         mkdir .github/test
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-client.git .github/test
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test
-        mkdir .github/package
-        git clone https://github.com/Crush-0/workflows.git .github/package
 
     - name: Configure version
       run: |
         cd .github/test
-        cp ../package/workflows/package.json package.json
-        cp ../package/workflows/package.json LICENSE.md
-        cd ../package/workflows
+        cp ../../package.json package.json
+        cp ../../LICENSE.md LICENSE.md
+        cd ../..
         node update-package-version.js
-        cd ../../test
+        cd ./test
 
     - name: Package all
       run: 
