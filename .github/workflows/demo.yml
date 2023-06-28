@@ -27,13 +27,12 @@ jobs:
         cp ../../package.json package.json
         cp ../../LICENSE.md LICENSE.md
         cd ../..
-        cd .github/test/client
-        ls
         node update-package-version.js
         cd .github/test
 
     - name: Package all
       run: 
+        npm i vsce -g
         vsce package
       
 
