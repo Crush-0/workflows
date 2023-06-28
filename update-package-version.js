@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 // 读取 RRTV-client 目录下的 package.json 文件
-const clientPackageJsonPath = '../../test/client/RRTV-client/package.json';
+const clientPackageJsonPath = '../../test/client/package.json';
 const clientPackageJson = JSON.parse(fs.readFileSync(clientPackageJsonPath));
 
 // 读取主目录下的 package.json 文件
