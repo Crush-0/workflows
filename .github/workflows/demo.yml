@@ -25,9 +25,9 @@ jobs:
     - name: Configure version
       run: |
         cd .github/test
-        cp ../package.json package.json
-        cp ../LICENSE.md LICENSE.md
-        cd ..
+        cp ../../package.json package.json
+        cp ../../LICENSE.md LICENSE.md
+        cd ../..
         node update-package-version.js
         cd .github/test
 
