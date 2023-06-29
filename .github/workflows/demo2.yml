@@ -14,7 +14,7 @@ jobs:
       packages: read
 
     steps:
-    - name: Checkout all branches
+    - name: Checkout release branch
       uses: actions/checkout@v2
 
     - name: Git clone
@@ -24,12 +24,17 @@ jobs:
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-client.git .github/test/client
         mkdir .github/test/server
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
-        git clone https://github.com/Crush-0/rrtv-package.git .github/test
+        mkdir .github/test/package
+        git clone https://github.com/Crush-0/rrtv-package.git .github/test/package
 
     - name: Configure version
       run: |
         cd .github/test
         mv ./client/.vscode ./.vscode
+        mv ./package/LICENSE ./LICENSE
+        mv ./package/package.json ./package.json
+        mv ./package/README.md ./README.md
+        mv ./package/update-package-version.js ./update-package-version.js
         node update-package-version.js
 
     - name: Package all
