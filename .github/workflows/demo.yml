@@ -52,6 +52,7 @@ jobs:
         echo "::set-output name=version::$(node -p "require('./package.json').version")"
 
     - name: Create Release
+      id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
@@ -60,38 +61,13 @@ jobs:
         release_name: Release v0.0.1
         draft: true
         prerelease: false
-    
-    - name: Get Release
-      id: get_release
-      uses: actions/github-script@v5
-      with:
-        script: |
-          const response = await github.repos.getReleaseByTag({
-            owner: '${{ github.repository_owner }}',
-            repo: '${{ github.event.repository.name }}',
-            tag: '${{ steps.get_version.outputs.version }}'
-          });
-          console.log(response.data);
-
-    - name: Get Release Upload URL
-      uses: actions/github-script@v4
-      env:
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-      with:
-        script: |
-          const response = await github.repos.getReleaseByTag({
-            owner: '${{ github.repository_owner }}',
-            repo: '${{ github.event.repository.name }}',
-            tag: 'v${{ steps.get_version.outputs.version }}',
-          });
-          console.log(response.data.upload_url);
 
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       with:
-        upload_url: ${{ steps.Get_Release_Upload_URL.outputs.upload_url }}
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./dowmloads/react-refactor-tool-on-vscode-0.0.1.vsix
         asset_name: react-refactor-tool-on-vscode-0.0.1.vsix
         asset_content_type: application/octet-stream
