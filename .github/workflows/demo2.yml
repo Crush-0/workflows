@@ -17,7 +17,7 @@ jobs:
     - name: Checkout release branch
       uses: actions/checkout@v2
       with:
-        ref: 'refs/heads/release/*'
+        ref: 'refs/heads/releases/*'
 
     - name: Git clone
       run: |
