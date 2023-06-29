@@ -67,9 +67,9 @@ jobs:
       with:
         script: |
           const response = await github.repos.getReleaseByTag({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          tag: '${{ steps.get_version.outputs.version }}'
+            owner: '${{ github.repository_owner }}',
+            repo: '${{ github.event.repository.name }}',
+            tag: '${{ steps.get_version.outputs.version }}'
           });
           console.log(response.data);
 
