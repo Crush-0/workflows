@@ -7,8 +7,6 @@ on:
 jobs:
   clone:
     runs-on: windows-latest
-    
-    permissions: read-all
 
     steps:
     - name: Checkout main branch
@@ -54,4 +52,5 @@ jobs:
         release_name: Release v${{ steps.get_version.outputs.version }}
         draft: true
         prerelease: false
-        body_path: ./react-refactor-tool-on-vscode-0.0.1.vsix
+        files: |
+          .github/test/react-refactor-tool-on-vscode-0.0.1.vsix
