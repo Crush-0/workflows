@@ -17,20 +17,6 @@ jobs:
     - name: Checkout all branches
       uses: actions/checkout@v2
 
-    - name: Filter release branches
-      run: |
-        git branch -a --format="%(refname:short)" --sort=committerdate | grep 'refs/remotes/origin/releases/' > branches.txt
-
-    - name: Read branch names from file
-      id: read-branches
-      run: |
-        echo "::set-output name=branches::$(cat branches.txt)"
-
-    - name: Checkout release branch
-      uses: actions/checkout@v2
-      with:
-        ref: ${{ steps.read-branches.outputs.branches }}
-
     - name: Git clone
       run: |
         mkdir .github/test
