@@ -9,7 +9,7 @@ jobs:
   package:
     runs-on: windows-latest
 
-    permissons: 
+    permissions: 
       contents: read
       packages: read
 
