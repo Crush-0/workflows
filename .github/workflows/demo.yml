@@ -21,8 +21,10 @@ jobs:
         mkdir .github/test
         mkdir .github/test/client
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-client.git .github/test/client
+        ls
         mkdir .github/test/server
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
+        ls
 
     - name: Configure version
       run: |
@@ -32,7 +34,6 @@ jobs:
         cd ../..
         node update-package-version.js
         cd .github/test
-        pwd
         ls
 
     - name: Package all
@@ -51,8 +52,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       with:
-        tag_name: v0.0.1
-        release_name: Release v0.0.1
+        tag_name: v${{ steps.get_version.outputs.version }}
+        release_name: Release v${{ steps.get_version.outputs.version }}
         draft: true
         prerelease: false
 
