@@ -21,10 +21,11 @@ jobs:
         mkdir .github/test
         mkdir .github/test/client
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-client.git .github/test/client
-        ls
         mkdir .github/test/server
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
+        cd .github/test/client
         ls
+        cd ../..
 
     - name: Configure version
       run: |
