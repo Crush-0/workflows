@@ -7,6 +7,8 @@ on:
 jobs:
   clone:
     runs-on: windows-latest
+    
+    permissions: read-all
 
     steps:
     - name: Checkout main branch
@@ -30,13 +32,19 @@ jobs:
         cd ../..
         node update-package-version.js
         cd .github/test
+        pwd
         ls
 
     - name: Package all
       run: |
         npm i @vscode/vsce -g
         vsce package
-        ls
+      
+    - name: Move VSIX file
+      run: |
+        mkdir downloads
+        mv react-refactor-tool-on-vscode-0.0.1.vsix downloads/
+        ls downloads
       
     - name: Get package version
       id: get_version
@@ -52,5 +60,14 @@ jobs:
         release_name: Release v${{ steps.get_version.outputs.version }}
         draft: true
         prerelease: false
-        files: |
-          .github/test/react-refactor-tool-on-vscode-0.0.1.vsix
+        body_path: ./react-refactor-tool-on-vscode-0.0.1.vsix
+    
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./react-refactor-tool-on-vscode-0.0.1.vsix
+        asset_name: react-refactor-tool-on-vscode-0.0.1.vsix
+        asset_content_type: application/octet-stream
