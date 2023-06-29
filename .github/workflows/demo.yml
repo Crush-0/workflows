@@ -60,7 +60,6 @@ jobs:
         release_name: Release v${{ steps.get_version.outputs.version }}
         draft: true
         prerelease: false
-        body_path: ./react-refactor-tool-on-vscode-0.0.1.vsix
     
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
@@ -68,6 +67,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./react-refactor-tool-on-vscode-0.0.1.vsix
+        asset_path: ./dowmloads/react-refactor-tool-on-vscode-0.0.1.vsix
         asset_name: react-refactor-tool-on-vscode-0.0.1.vsix
         asset_content_type: application/octet-stream
