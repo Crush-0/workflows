@@ -23,7 +23,7 @@ jobs:
         mkdir .github/test/client
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-client.git .github/test/client
         mkdir .github/test/server
-        $REF = (git ls-remote --refs origin 'releases/*' | ForEach-Object { $_ -split '/' }) | ForEach-Object { $_[2] } | Sort-Object -Property { [Version]$_ } | Select-Object -Last 1
+        $REF = (git ls-remote --refs origin 'releases/*' | ForEach-Object { $_ -split '/' }) | ForEach-Object { $_[2] } | Sort-Object -Descending | Select-Object -First 1
         git clone --branch releases/$REF https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
         mkdir .github/test/package
         git clone https://github.com/Crush-0/rrtv-package.git .github/test/package
