@@ -14,22 +14,8 @@ jobs:
       packages: read
 
     steps:
-    - name: Checkout all branches
-      uses: actions/checkout@v2
-
-    - name: Filter release branches
-      run: |
-        git branch -a --format="%(refname:short)" --sort=committerdate | grep 'refs/remotes/origin/releases/' > branches.txt
-
-    - name: Read branch names from file
-      id: read-branches
-      run: |
-        echo "::set-output name=branches::$(cat branches.txt)"
-
     - name: Checkout release branch
       uses: actions/checkout@v2
-      with:
-        ref: ${{ steps.read-branches.outputs.branches }}
 
     - name: Git clone
       run: |
@@ -38,13 +24,27 @@ jobs:
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-client.git .github/test/client
         mkdir .github/test/server
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
-        git clone https://github.com/Crush-0/rrtv-package.git .github/test
-
+        mkdir .github/test/package
+        git clone https://github.com/Crush-0/rrtv-package.git .github/test/package
+        cd .github/test/server
+        ls
+        cd ../..
+  
     - name: Configure version
       run: |
         cd .github/test
         mv ./client/.vscode ./.vscode
+        mv ./package/LICENSE ./LICENSE
+        mv ./package/package.json ./package.json
+        mv ./package/README.md ./README.md
+        mv ./package/tsconfig.json ./tsconfig.json
+        mv ./package/.eslintrc.json ./.eslintrc.json
+        mv ./package/.gitignore ./.gitignore
+        mv ./package/.vscodeignore ./.vscodeignore
+        mv ./package/vsc-extension-quickstart.md ./vsc-extension-quickstart.md
+        mv ./package/update-package-version.js ./update-package-version.js
         node update-package-version.js
+        ls
 
     - name: Package all
       run: |
