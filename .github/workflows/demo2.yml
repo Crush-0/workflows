@@ -34,10 +34,10 @@ jobs:
         git clone https://github.com/Crush-0/rrtv-package.git .github/test/package
         cd .github/test/server
         ls
-        cd ../..
+        cd ../../..
         cd .github/test/client
         ls
-        cd ../..
+        cd ../../..
   
     - name: Configure version
       run: |
