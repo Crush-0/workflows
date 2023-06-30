@@ -17,13 +17,21 @@ jobs:
     - name: Checkout release branch
       uses: actions/checkout@v2
 
+    - name: Get latest version
+      shell: powershell
+      run: |
+        $tags = git ls-remote --refs origin 'refs/tags/v*' |
+                ForEach-Object { $_.Name -replace '^.*?/v' }
+          
+        $latestVersion = $tags | Sort-Object -Descending | Select-Object -First 1
+
     - name: Git clone
       run: |
         mkdir .github/test
         mkdir .github/test/client
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-client.git .github/test/client
         mkdir .github/test/server
-        git clone --branch releases/v1.0.0 https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
+        git clone --branch $latestVersion https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
         mkdir .github/test/package
         git clone https://github.com/Crush-0/rrtv-package.git .github/test/package
         cd .github/test/server
