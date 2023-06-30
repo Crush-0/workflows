@@ -23,7 +23,7 @@ jobs:
         mkdir .github/test/client
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-client.git .github/test/client
         mkdir .github/test/server
-        latest_version=$(git ls-remote --tags --sort="v:refname" --refs https://github.com/react-refactor-tool-on-vscode/RRTV-server.git 'refs/tags/release/v*' | tail -n1 | sed 's@^.*/@@' | sed 's/^release\/v//')
+        $latest_version = (git ls-remote --tags --sort="v:refname" --refs https://github.com/react-refactor-tool-on-vscode/RRTV-server.git 'refs/tags/release/v*' | Select-Object -Last 1 | ForEach-Object { $_.Name -replace 'refs/tags/release/v' })
         echo "release/v$latest_version"
         git clone --branch "release/v$latest_version" https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
         mkdir .github/test/package
