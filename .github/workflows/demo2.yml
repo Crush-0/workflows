@@ -22,8 +22,9 @@ jobs:
       run: |
         $tags = git ls-remote --refs origin 'refs/tags/v*' |
                 ForEach-Object { $_.Name -replace '^.*?/v' }
-          
+        Write-Host "$tags"
         $latestVersion = $tags | Sort-Object -Descending | Select-Object -First 1
+        Write-Host "Latest version: $latestVersion"
 
     - name: Git clone
       run: |
