@@ -35,6 +35,9 @@ jobs:
         cd .github/test/server
         ls
         cd ../..
+        cd .github/test/client
+        ls
+        cd ../..
   
     - name: Configure version
       run: |
