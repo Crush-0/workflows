@@ -20,9 +20,9 @@ jobs:
     - name: Get latest version
       shell: powershell
       run: |
-        $tag = git ls-remote --refs origin 'refs/tags/v*'
+        $tag = git ls-remote --refs origin 'refs/releases/v*'
         Write-Host "$tag"
-        $tags = git ls-remote --refs origin 'refs/tags/v*' |
+        $tags = git ls-remote --refs origin 'refs/releases/v*' |
                 ForEach-Object { $_.Name -replace '^.*?/v' }
         Write-Host "$tags"
         $latestVersion = $tags | Sort-Object -Descending | Select-Object -First 1
