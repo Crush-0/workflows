@@ -26,7 +26,10 @@ jobs:
         git clone https://github.com/react-refactor-tool-on-vscode/RRTV-server.git .github/test/server
         mkdir .github/test/package
         git clone https://github.com/Crush-0/rrtv-package.git .github/test/package
-
+        cd .github/test/server
+        ls
+        cd ../..
+  
     - name: Configure version
       run: |
         cd .github/test
@@ -34,8 +37,14 @@ jobs:
         mv ./package/LICENSE ./LICENSE
         mv ./package/package.json ./package.json
         mv ./package/README.md ./README.md
+        mv ./package/tsconfig.json ./tsconfig.json
+        mv ./package/.eslintrc.json ./.eslintrc.json
+        mv ./package/.gitignore ./.gitignore
+        mv ./package/.vscodeignore ./.vscodeignore
+        mv ./package/vsc-extension-quickstart.md ./vsc-extension-quickstart.md
         mv ./package/update-package-version.js ./update-package-version.js
         node update-package-version.js
+        ls
 
     - name: Package all
       run: |
