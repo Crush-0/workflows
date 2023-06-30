@@ -33,9 +33,13 @@ jobs:
         mkdir .github/test/package
         git clone https://github.com/Crush-0/rrtv-package.git .github/test/package
         cd .github/test/server
+        npm install
+        npm run compile
         ls
         cd ../../..
         cd .github/test/client
+        npm install
+        npm run compile
         ls
         cd ../../..
   
